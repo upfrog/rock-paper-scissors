@@ -1,15 +1,6 @@
 let humanScore = 0;
 let computerScore = 0;
-
-console.log("starting!");
-
-
-playRound(getHumanChoice(), getComputerChoice());
-
-console.log("done!");
-
-
-
+playGame();
 
 function getComputerChoice()
 {
@@ -114,7 +105,19 @@ function playRound(humanChoice, computerChoice) {
             ++computerScore;
             break;
     }
+}
 
+function playGame() {
+    let gameNum = 5;
 
+    //oh wait, we haven't been shown loops yet.
+    //Okay, I'll do it in the intended spirit, I guess.
 
+    playRound(getHumanChoice(), getComputerChoice());
+    playRound(getHumanChoice(), getComputerChoice());
+    playRound(getHumanChoice(), getComputerChoice());
+    playRound(getHumanChoice(), getComputerChoice());
+    playRound(getHumanChoice(), getComputerChoice());
+
+    console.log(`Final score: You got ${humanScore} points. The computer got ${computerScore} points`);   
 }
