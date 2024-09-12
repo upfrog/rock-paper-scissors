@@ -1,6 +1,8 @@
 
-
-
+console.log("starting!");
+console.log(getHumanChoice());
+console.log(getComputerChoice());
+console.log("done!");
 
 
 function getComputerChoice()
@@ -10,7 +12,7 @@ function getComputerChoice()
 
     while (computerChoice == "")
     {
-        let choiceSeed = Math.random;
+        let choiceSeed = Math.random();
         
         if (choiceSeed < 0.33) {
             computerChoice = "Rock";
@@ -27,8 +29,17 @@ function getComputerChoice()
     return computerChoice;
 }
 
+function getHumanChoice() {
+    let humanChoice = "";
+    
+    while (humanChoice == "") {
+        humanChoice = prompt("Please enter \"Rock\", \"Paper\", or \"Scissors\".");
 
-console.log("starting!");
-console.log(getComputerChoice());
-console.log("done!");
+        if (humanChoice != "Rock" && humanChoice != "Paper" && humanChoice != "Scissors") {
+            humanChoice = "";
+            console.log("I'm sorry, that was not a valid input. Please try again.");
+        }
+    }
 
+    return humanChoice;
+}
