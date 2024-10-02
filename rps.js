@@ -1,6 +1,43 @@
+/**
+ * This is missing code to end a game (ie a set of rounds) and start a new one,
+ * and the aesthetics are pretty bad, but I'd rather just move on.
+ */
+
 let humanScore = 0;
 let computerScore = 0;
-playGame();
+
+init();
+
+function init() {
+
+    setupRock();
+    setupPaper();
+    setupScissors();
+}
+
+function setupRock() {
+    rockBtn = document.querySelector("#rock");
+    
+    rockBtn.addEventListener("click", () => {
+        playRound("rock", getComputerChoice());
+    });
+}
+
+function setupPaper() {
+    btn = document.querySelector("#paper");
+    
+    btn.addEventListener("click", () => {
+        playRound("paper", getComputerChoice());
+    });
+}
+
+function setupScissors() {
+    btn = document.querySelector("#scissors");
+    
+    btn.addEventListener("click", () => {
+        playRound("scissors", getComputerChoice());
+    });
+}
 
 function getComputerChoice()
 {
@@ -42,9 +79,8 @@ function getHumanChoice() {
     return humanChoice;
 }
 
-
 function playRound(humanChoice, computerChoice) {
-    //I want to find a more elegant way of doing this - perhaps assign each of the choices a numerical value, and 
+    //I want to find a more elgaent way of doing this - perhaps assign each of the choices a numerical value, and 
     //map different outcomes to different results when those numerical values are input to some function?
     //Alternatively, I could use an object, and give each choice a weakTo or strongTo. 
     let result = 0; //0 = draw, 1 = human wins, 2 = computer wins
@@ -92,32 +128,37 @@ function playRound(humanChoice, computerChoice) {
         }
     }
 
+    let results = document.querySelector("#results");
     switch(result) {
         case 0:
-            console.log("That's a draw.");
+            results.textContent = "Draw."
             break;
         case 1:
-            console.log("You win this round! Congratulations!");
+            results.textContent = "You win! Congratulations!"
             ++humanScore;
             break;
         case 2:
-            console.log("You lose this round.");
+            results.textContent = "You lose this round."
             ++computerScore;
             break;
     }
-}
 
-function playGame() {
-    let gameNum = 5;
+    let humanScoreDiv = document.querySelector("#humanScore");
+    let computerScoreDiv = document.querySelector("#computerScore");
 
-    //oh wait, we haven't been shown loops yet.
-    //Okay, I'll do it in the intended spirit, I guess.
+    humanScoreDiv.textContent = humanScore;
+    computerScoreDiv.textContent = computerScore;
 
-    playRound(getHumanChoice(), getComputerChoice());
-    playRound(getHumanChoice(), getComputerChoice());
-    playRound(getHumanChoice(), getComputerChoice());
-    playRound(getHumanChoice(), getComputerChoice());
-    playRound(getHumanChoice(), getComputerChoice());
+    if (humanScore >= 5) {
+        winDiv = document.createElement("h1");
+        winDiv.textContent = "You won the game! Congratulations!"
 
-    console.log(`Final score: You got ${humanScore} points. The computer got ${computerScore} points`);   
+        document.querySelector("#score").appendChild(winDiv);        
+    }
+    else if (computerScore >= 5) {
+        winDiv = document.createElement("h1");
+        winDiv.textContent = "You lost the game!"
+
+        document.querySelector("#score").appendChild(winDiv);  
+    }
 }
